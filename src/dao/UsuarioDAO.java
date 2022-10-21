@@ -89,7 +89,7 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    public ArrayList<Usuario> pesquisar(String nome) {
+    public ArrayList<Usuario> pesquisarUsuario(String nome) {
         ArrayList<Usuario> usuarios = null;
         String sql = "select * from usuario where nome like '%" + nome + "%' order by nome";
         //
@@ -169,7 +169,7 @@ public class UsuarioDAO {
         return retorno;
     }
 
-    public boolean deletarFuncionario(int id) {
+    public boolean deletarUsuario(int id) {
 
         String sql = "delete from usuario where id = ?";
         boolean retorno = false;

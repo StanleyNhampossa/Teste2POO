@@ -20,31 +20,19 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     
     private String operacao = "Cadastrar";
 
-    private CurrentUser currentUser;
+    private final CurrentUser currentUser;
 
-    
-    
+    private int id;
 
     /**
      * Creates new form TelaRegistarUsuario
      */
 
-    private int id;
-
     public TelaRegistarUsuario(CurrentUser currentUser) {
         initComponents();
         this.currentUser = currentUser;
-        TextPrompt textPrompt = new TextPrompt("Nome", txtNome);
-        textPrompt = new TextPrompt("Nome de usuário", txtNomeUsuario);
-        textPrompt = new TextPrompt("Biografia", tafBiografia);
-        textPrompt = new TextPrompt("Senha", txtSenha);
-        textPrompt = new TextPrompt("Confirmar senha", txtConfirmarSenha);
-        textPrompt = new TextPrompt("Email", txtEmail);
-        textPrompt = new TextPrompt("Contacto", txtContacto);
+        inicializarComponentes();
         setLocationRelativeTo(null);
-        txtConfirmarSenha.setEnabled(false);
-        btnSalvar.setEnabled(false);
-
     }
 
     /**
@@ -58,7 +46,7 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblImagem = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtNomeUsuario = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
@@ -69,14 +57,14 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         txtConfirmarSenha = new javax.swing.JPasswordField();
         btnSalvar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Crie um novo usuário");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo-usuario.png"))); // NOI18N
+        lblImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo-usuario.png"))); // NOI18N
 
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -142,10 +130,10 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Voltar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -176,13 +164,13 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
                                         .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(49, 49, 49)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap(98, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(114, 114, 114))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,7 +179,7 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +199,7 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
                             .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(94, 94, 94))
@@ -251,12 +239,8 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
 
     private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
         txtNome.setBackground(Color.WHITE);
-        if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
-                    !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
-                btnSalvar.setEnabled(true);
-            }else{
-            btnSalvar.setEnabled(false);
-        }
+        btnSalvar.setEnabled(!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
+                !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty());
         
     }//GEN-LAST:event_txtNomeKeyReleased
 
@@ -273,37 +257,22 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Introduza senhas iguais");
         }else{
             if(operacao.equals("Cadastrar")){
-                boolean sucesso = new UsuarioController().registarUsuario(nome, nomeUsuario, email, dataDeNascimento, contacto,
+                clickNoBotaoSalvar(nome, nomeUsuario, email, dataDeNascimento, contacto,
                         biografia, senha);
-                if(sucesso) {
-                    JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso");
-                    TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
-                    telaMenuPrincipal.setVisible(true);
-                    this.dispose();
-                }else
-                    JOptionPane.showMessageDialog(this, "Verifique os campos");
             }
             if(operacao.equals("Editar")){
-                boolean sucesso = new UsuarioController().actualizarUsuario(id, nome, nomeUsuario, email, dataDeNascimento, contacto,
+                clickNoBotaoEditar(nome, nomeUsuario, email, dataDeNascimento, contacto,
                         biografia, senha);
-                if(sucesso) {
-                    JOptionPane.showMessageDialog(this, "Usuário editado com sucesso");
-                    TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
-                    telaMenuPrincipal.setVisible(true);
-                    this.dispose();
-                }else
-                    JOptionPane.showMessageDialog(this, "Verifique os campos");
-            
             }
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
         telaMenuPrincipal.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
         // TODO add your handling code here:
@@ -325,42 +294,26 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     private void txtConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarSenhaKeyReleased
         if(txtConfirmarSenha.getText().equals(txtSenha.getText())){
             txtConfirmarSenha.setBackground(Color.green);
-            if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
-                    !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
-                btnSalvar.setEnabled(true);
-            }else{
-            btnSalvar.setEnabled(false);
-        }
+            btnSalvar.setEnabled(!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
+                    !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty());
         }else{
             txtConfirmarSenha.setBackground(Color.red);
         }
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
 
     private void txtNomeUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyReleased
-        if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
-                    !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
-                btnSalvar.setEnabled(true);
-            }else{
-            btnSalvar.setEnabled(false);
-        }
+        btnSalvar.setEnabled(!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
+                !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty());
     }//GEN-LAST:event_txtNomeUsuarioKeyReleased
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
-        if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
-                    !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
-                btnSalvar.setEnabled(true);
-            }else{
-            btnSalvar.setEnabled(false);
-        }
+        btnSalvar.setEnabled(!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
+                !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty());
     }//GEN-LAST:event_txtEmailKeyReleased
 
     private void txtContactoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactoKeyReleased
-        if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
-                    !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
-                btnSalvar.setEnabled(true);
-            }else{
-            btnSalvar.setEnabled(false);
-        }
+        btnSalvar.setEnabled(!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
+                !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty());
     }//GEN-LAST:event_txtContactoKeyReleased
 
     private void tafBiografiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tafBiografiaKeyReleased
@@ -378,12 +331,12 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
     private com.toedter.calendar.JDateChooser dcsDataDeNascimento;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblImagem;
     private javax.swing.JTextArea tafBiografia;
     private javax.swing.JPasswordField txtConfirmarSenha;
     private javax.swing.JTextField txtContacto;
@@ -392,6 +345,10 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeUsuario;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
+
+    public void setOperacao(String operacao) {
+        this.operacao = operacao;
+    }
 
     public void preencherCampos(int id, String nome, String email, String nomeUsuario, String biografia, Date data, long contacto, String operacao) {
         this.id = id;
@@ -407,15 +364,42 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
-    public void setOperacao(String operacao) {
-        this.operacao = operacao;
+    private void clickNoBotaoSalvar(String nome, String nomeUsuario, String email, Date dataDeNascimento, long contacto,
+            String biografia, String senha){
+        boolean sucesso = new UsuarioController().registarUsuario(nome, nomeUsuario, email, dataDeNascimento, contacto,
+                biografia, senha);
+        if(sucesso) {
+            JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso");
+            TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
+            telaMenuPrincipal.setVisible(true);
+            this.dispose();
+        }else
+            JOptionPane.showMessageDialog(this, "Verifique os campos");
     }
 
-    public CurrentUser getCurrentUser() {
-        return currentUser;
+    private void clickNoBotaoEditar(String nome, String nomeUsuario, String email, Date dataDeNascimento, long contacto,
+                                    String biografia, String senha){
+        boolean sucesso = new UsuarioController().actualizarUsuario(this.id, nome, nomeUsuario, email, dataDeNascimento, contacto,
+                biografia, senha);
+        if(sucesso) {
+            JOptionPane.showMessageDialog(this, "Usuário editado com sucesso");
+            TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
+            telaMenuPrincipal.setVisible(true);
+            this.dispose();
+        }else
+            JOptionPane.showMessageDialog(this, "Verifique os campos");
     }
 
-    public void setCurrentUser(CurrentUser currentUser) {
-        this.currentUser = currentUser;
+    private void inicializarComponentes(){
+        TextPrompt textPrompt = new TextPrompt("Nome", txtNome);
+        textPrompt = new TextPrompt("Nome de usuário", txtNomeUsuario);
+        textPrompt = new TextPrompt("Biografia", tafBiografia);
+        textPrompt = new TextPrompt("Senha", txtSenha);
+        textPrompt = new TextPrompt("Confirmar senha", txtConfirmarSenha);
+        textPrompt = new TextPrompt("Email", txtEmail);
+        textPrompt = new TextPrompt("Contacto", txtContacto);
+        txtConfirmarSenha.setEnabled(false);
+        btnSalvar.setEnabled(false);
     }
+
 }

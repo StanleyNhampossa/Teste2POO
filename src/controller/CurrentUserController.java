@@ -27,7 +27,7 @@ public class CurrentUserController {
     }
 
     public CurrentUser recuperar(){
-        return new CurrentUser().recuperar();
+        return new CurrentUser().recuperarCurrentUser();
     }
 
     public void actualizarLembrarMe(boolean lembrarMe){

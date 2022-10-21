@@ -67,8 +67,8 @@ public class CurrentUser {
         return new CurrentUserDAO().registarNewUser(currentUser);
     }
 
-    public CurrentUser recuperar(){
-        return new CurrentUserDAO().recuperar();
+    public CurrentUser recuperarCurrentUser(){
+        return new CurrentUserDAO().recuperarCurrentUser();
     }
     
     public boolean actualizarSenha(String senha){

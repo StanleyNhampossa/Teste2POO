@@ -24,41 +24,12 @@ public class TelaListar extends javax.swing.JFrame {
      */
     private String operacao = "Listar";
 
-    private CurrentUser currentUser;
-
-    public void setOperacao(String operacao) {
-        this.operacao = operacao;
-    }
-    
-    
-    private void preencherDadosNaTabela(){
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        usuarios = new UsuarioController().listarTodos();
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0);
-        for(Usuario usuario : usuarios){
-            modelo.addRow(
-                    new Object[]{
-                            usuario.getId(),
-                            usuario.getNome(),
-                            usuario.getEmail(),
-                            usuario.getNomeUsuario(),
-                            usuario.getBiografia(),
-                            usuario.getDataDeNascimento(),
-                            usuario.getContacto()
-                    }
-            );
-        }
-        jTable1.setModel(modelo);
-
-    }
-
+    private final CurrentUser currentUser;
 
     public TelaListar(CurrentUser currentUser) {
         initComponents();
         setLocationRelativeTo(null);
-        preencherDadosNaTabela();
-        TextPrompt textPrompt = new TextPrompt("Pesquisar", jTextField1);
+        inicializarComportamentos();
         this.currentUser = currentUser;
     }
 
@@ -71,21 +42,21 @@ public class TelaListar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        tbUsuarios = new javax.swing.JTable();
+        txtPesquisar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -104,19 +75,19 @@ public class TelaListar extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                tbUsuariosMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jTable1MouseEntered(evt);
+                tbUsuariosMouseEntered(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbUsuarios);
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                txtPesquisarKeyReleased(evt);
             }
         });
 
@@ -129,9 +100,9 @@ public class TelaListar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -139,8 +110,8 @@ public class TelaListar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(txtPesquisar))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
@@ -149,46 +120,98 @@ public class TelaListar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
         telaMenuPrincipal.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void tbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseClicked
         if(evt.getClickCount() == 2){
-            System.out.println(operacao);
             if(operacao.equals("Editar")){
-                int id = (Integer) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
-                String nome = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1);
-                String email = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2);
-                String nomeUsuario = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 3);
-                String biografia = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 4);
-                Date data = (Date) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 5);
-                long contacto = (Long) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 6);
-                TelaRegistarUsuario telaRegistarUsuario = new TelaRegistarUsuario(this.currentUser);
-                telaRegistarUsuario.preencherCampos(id, nome, email, nomeUsuario,
-                        biografia, data, contacto, operacao);
-                telaRegistarUsuario.setCurrentUser(this.currentUser);
-                this.dispose();
+                clickNoBotaoEditar();
             }
             if(operacao.equals("Eliminar")){
-                int id = (Integer) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
-                boolean sucesso = new UsuarioController().deletarUsuario(id);
-                if(sucesso) JOptionPane.showMessageDialog(null, "Usuário eliminado com sucesso");
-                else JOptionPane.showMessageDialog(null, "Erro ao eliminar");
-                preencherDadosNaTabela();
+                clickNoBotaoEliminar();
             } 
         }
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_tbUsuariosMouseClicked
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        if(jTextField1.getText().isEmpty()){
+    private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
+        pesquisa();
+    }//GEN-LAST:event_txtPesquisarKeyReleased
+
+    private void tbUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseEntered
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tbUsuariosMouseEntered
+
+    /**
+     * @param args the command line arguments
+     */
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbUsuarios;
+    private javax.swing.JTextField txtPesquisar;
+    // End of variables declaration//GEN-END:variables
+
+    public void setOperacao(String operacao) {
+        this.operacao = operacao;
+    }
+
+    private void preencherDadosNaTabela(){
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        usuarios = new UsuarioController().listarTodos();
+        DefaultTableModel modelo = (DefaultTableModel) tbUsuarios.getModel();
+        modelo.setRowCount(0);
+        for(Usuario usuario : usuarios){
+            modelo.addRow(
+                    new Object[]{
+                            usuario.getId(),
+                            usuario.getNome(),
+                            usuario.getEmail(),
+                            usuario.getNomeUsuario(),
+                            usuario.getBiografia(),
+                            usuario.getDataDeNascimento(),
+                            usuario.getContacto()
+                    }
+            );
+        }
+        tbUsuarios.setModel(modelo);
+    }
+
+    private void clickNoBotaoEditar(){
+        int id = (Integer) tbUsuarios.getModel().getValueAt(tbUsuarios.getSelectedRow(), 0);
+        String nome = (String) tbUsuarios.getModel().getValueAt(tbUsuarios.getSelectedRow(), 1);
+        String email = (String) tbUsuarios.getModel().getValueAt(tbUsuarios.getSelectedRow(), 2);
+        String nomeUsuario = (String) tbUsuarios.getModel().getValueAt(tbUsuarios.getSelectedRow(), 3);
+        String biografia = (String) tbUsuarios.getModel().getValueAt(tbUsuarios.getSelectedRow(), 4);
+        Date data = (Date) tbUsuarios.getModel().getValueAt(tbUsuarios.getSelectedRow(), 5);
+        long contacto = (Long) tbUsuarios.getModel().getValueAt(tbUsuarios.getSelectedRow(), 6);
+        TelaRegistarUsuario telaRegistarUsuario = new TelaRegistarUsuario(this.currentUser);
+        telaRegistarUsuario.preencherCampos(id, nome, email, nomeUsuario,
+                biografia, data, contacto, operacao);
+        this.dispose();
+    }
+
+    private void clickNoBotaoEliminar(){
+        int id = (Integer) tbUsuarios.getModel().getValueAt(tbUsuarios.getSelectedRow(), 0);
+        boolean sucesso = new UsuarioController().deletarUsuario(id);
+        if(sucesso) JOptionPane.showMessageDialog(null, "Usuário eliminado com sucesso");
+        else JOptionPane.showMessageDialog(null, "Erro ao eliminar");
+        preencherDadosNaTabela();
+    }
+
+    private void pesquisa(){
+        if(txtPesquisar.getText().isEmpty()){
             preencherDadosNaTabela();
         }else{
             ArrayList<Usuario> usuarios = new ArrayList<>();
-            usuarios = new UsuarioController().pesquisar(jTextField1.getText());
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            usuarios = new UsuarioController().pesquisar(txtPesquisar.getText());
+            DefaultTableModel modelo = (DefaultTableModel) tbUsuarios.getModel();
             modelo.setRowCount(0);
             for(Usuario usuario : usuarios){
                 modelo.addRow(
@@ -203,25 +226,13 @@ public class TelaListar extends javax.swing.JFrame {
                         }
                 );
             }
-            jTable1.setModel(modelo);
+            tbUsuarios.setModel(modelo);
         }
-    }//GEN-LAST:event_jTextField1KeyReleased
+    }
 
-    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jTable1MouseEntered
-
-    /**
-     * @param args the command line arguments
-     */
-    
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    // End of variables declaration//GEN-END:variables
+    private void inicializarComportamentos(){
+        preencherDadosNaTabela();
+        TextPrompt textPrompt = new TextPrompt("Pesquisar", txtPesquisar);
+    }
 
 }

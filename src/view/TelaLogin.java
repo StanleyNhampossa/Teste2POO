@@ -23,8 +23,7 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         initComponents();
         setLocationRelativeTo(null);
-        TextPrompt textUsuario = new TextPrompt("Usuário", txtUsuario);
-        textUsuario = new TextPrompt("Senha", txtPassword);
+        inicializarComportamentos();
     }
 
     /**
@@ -40,7 +39,7 @@ public class TelaLogin extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         chbLembrarMe = new javax.swing.JCheckBox();
         lblEsqueceuSenha = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblImagem = new javax.swing.JLabel();
         btnEntrar = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
 
@@ -69,7 +68,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/profile.png"))); // NOI18N
+        lblImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/profile.png"))); // NOI18N
 
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -112,14 +111,14 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap(84, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(176, 176, 176))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -150,18 +149,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        CurrentUser currentUser = new CurrentUser().recuperar();
-        System.out.println(currentUser.getNome());
-        if(txtUsuario.getText().equals(currentUser.getNome()) && txtPassword.getText().equals(currentUser.getSenha())){
-            new CurrentUserController().actualizarLembrarMe(chbLembrarMe.isSelected());
-            TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(currentUser);
-            telaMenuPrincipal.setVisible(true);
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "Combinação de usuário e senha incorrecta");
-        }
-        
-        
+        login();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
@@ -186,7 +174,7 @@ public class TelaLogin extends javax.swing.JFrame {
             if(txtUsuario.getText().isEmpty()){
                 txtUsuario.setBackground(Color.RED);
             }else{
-                CurrentUser currentUser = new CurrentUser().recuperar();
+                CurrentUser currentUser = new CurrentUser().recuperarCurrentUser();
                 if(txtUsuario.getText().equals(currentUser.getNome()) && txtPassword.getText().equals(currentUser.getSenha())){
                     TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(currentUser);
                     telaMenuPrincipal.setVisible(true);
@@ -215,10 +203,27 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
     private javax.swing.JCheckBox chbLembrarMe;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblEsqueceuSenha;
+    private javax.swing.JLabel lblImagem;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void inicializarComportamentos(){
+        TextPrompt textUsuario = new TextPrompt("Usuário", txtUsuario);
+        textUsuario = new TextPrompt("Senha", txtPassword);
+    }
+
+    private void login(){
+        CurrentUser currentUser = new CurrentUser().recuperarCurrentUser();
+        if(txtUsuario.getText().equals(currentUser.getNome()) && txtPassword.getText().equals(currentUser.getSenha())){
+            new CurrentUserController().actualizarLembrarMe(chbLembrarMe.isSelected());
+            TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(currentUser);
+            telaMenuPrincipal.setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Combinação de usuário e senha incorrecta");
+        }
+    }
 }

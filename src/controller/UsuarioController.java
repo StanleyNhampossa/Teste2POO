@@ -34,7 +34,7 @@ public class UsuarioController {
     }
 
     public ArrayList<Usuario> pesquisar(String nome){
-        return new Usuario().pesquisar(nome);
+        return new Usuario().pesquisarUsuario(nome);
     }
 
     public boolean actualizarUsuario(int id, String nome, String nomeUsuario, String email, Date dataDeNascimento,
@@ -84,11 +84,7 @@ public class UsuarioController {
         return decriptografada;
     }
     public boolean validarEmail(String email){
-        if(email.matches("^[A-Za-z0-9+.-]+@(.+)$")){
-            return true;
-        }
-
-        return false;
+        return email.matches("^[A-Za-z0-9+.-]+@(.+)$");
 
     }
     

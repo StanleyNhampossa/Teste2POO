@@ -5,11 +5,9 @@
 package dao;
 
 import model.CurrentUser;
-import model.Usuario;
 
 import javax.swing.*;
 import java.sql.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -83,7 +81,7 @@ public class CurrentUserDAO {
     }
     
     public boolean actualizarNewUser(CurrentUser currentUser){
-        
+        //TODO
         
         return false;
     }
@@ -109,7 +107,7 @@ public class CurrentUserDAO {
         }
 
     }
-    public CurrentUser recuperar(){
+    public CurrentUser recuperarCurrentUser(){
         String sql = "select * from currentuser";
         CurrentUser currentUser = null;
         try{

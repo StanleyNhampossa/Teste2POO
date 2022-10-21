@@ -105,8 +105,8 @@ public class Usuario {
         return new UsuarioDAO().listarTodosUsuarios();
     }
 
-    public ArrayList<Usuario> pesquisar(String nome){
-        return new UsuarioDAO().pesquisar(nome);
+    public ArrayList<Usuario> pesquisarUsuario(String nome){
+        return new UsuarioDAO().pesquisarUsuario(nome);
     }
 
     public boolean actualizarUsuario(Usuario usuario){
@@ -114,6 +114,6 @@ public class Usuario {
     }
 
     public boolean deletarUsuario(int id){
-        return new UsuarioDAO().deletarFuncionario(id);
+        return new UsuarioDAO().deletarUsuario(id);
     }
 }

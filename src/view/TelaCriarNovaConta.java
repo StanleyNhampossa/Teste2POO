@@ -21,12 +21,7 @@ public class TelaCriarNovaConta extends javax.swing.JFrame {
     public TelaCriarNovaConta() {
         initComponents();
         setLocationRelativeTo(null);
-        TextPrompt textPrompt = new TextPrompt("Nome de usuário", txtUsuario);
-        textPrompt = new TextPrompt("Senha", txtSenha);
-        textPrompt = new TextPrompt("Confirmar senha", txtConfirmarSenha);
-        textPrompt = new TextPrompt("Resposta", txtResposta);
-        txtConfirmarSenha.setEnabled(false);
-
+        inicializarComportamentos();
     }
 
     /**
@@ -39,31 +34,31 @@ public class TelaCriarNovaConta extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         txtUsuario = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbMetodoConfirmacao = new javax.swing.JComboBox<>();
         txtResposta = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblImagem = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
         txtConfirmarSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Salvar");
-        jButton1.setPreferredSize(new java.awt.Dimension(77, 30));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.setPreferredSize(new java.awt.Dimension(77, 30));
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seu primeiro nome?", "Escola primária que frequentou?", "Nome da sua mãe?", "Local de nascimento?" }));
+        cbMetodoConfirmacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seu primeiro nome?", "Escola primária que frequentou?", "Nome da sua mãe?", "Local de nascimento?" }));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Criar nova conta");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo-usuario.png"))); // NOI18N
+        lblImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo-usuario.png"))); // NOI18N
 
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,15 +100,15 @@ public class TelaCriarNovaConta extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtResposta, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, 200, Short.MAX_VALUE)
+                            .addComponent(cbMetodoConfirmacao, 0, 200, Short.MAX_VALUE)
                             .addComponent(txtSenha)
                             .addComponent(txtConfirmarSenha))
                         .addGap(42, 42, 42)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(31, 31, 31))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(122, 122, 122)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -130,12 +125,12 @@ public class TelaCriarNovaConta extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbMetodoConfirmacao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
                         .addComponent(txtResposta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -153,21 +148,10 @@ public class TelaCriarNovaConta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        criarNovaConta();
 
-        String nome = txtUsuario.getText();
-        String senha = txtSenha.getText();
-        String metodo = jComboBox1.getSelectedItem().toString();
-        String resposta = txtResposta.getText();
-        boolean sucesso = new CurrentUserController().registarCurrentUser(nome, senha, metodo, resposta);
-        if(sucesso){
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-            this.dispose();
-            new TelaLogin().setVisible(true);
-        }
-        else JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
         // TODO add your handling code here:
@@ -187,11 +171,7 @@ public class TelaCriarNovaConta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
-        if(txtSenha.getText().length() == 8){
-            txtConfirmarSenha.setEnabled(true);
-        }else{
-            txtConfirmarSenha.setEnabled(false);
-        }
+        txtConfirmarSenha.setEnabled(txtSenha.getText().length() == 8);
     }//GEN-LAST:event_txtSenhaKeyReleased
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
@@ -208,14 +188,36 @@ public class TelaCriarNovaConta extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> cbMetodoConfirmacao;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblImagem;
     private javax.swing.JPasswordField txtConfirmarSenha;
     private javax.swing.JTextField txtResposta;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void inicializarComportamentos(){
+        TextPrompt textPrompt = new TextPrompt("Nome de usuário", txtUsuario);
+        textPrompt = new TextPrompt("Senha", txtSenha);
+        textPrompt = new TextPrompt("Confirmar senha", txtConfirmarSenha);
+        textPrompt = new TextPrompt("Resposta", txtResposta);
+        txtConfirmarSenha.setEnabled(false);
+    }
+
+    private void criarNovaConta(){
+        String nome = txtUsuario.getText();
+        String senha = txtSenha.getText();
+        String metodo = cbMetodoConfirmacao.getSelectedItem().toString();
+        String resposta = txtResposta.getText();
+        boolean sucesso = new CurrentUserController().registarCurrentUser(nome, senha, metodo, resposta);
+        if(sucesso){
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+            this.dispose();
+            new TelaLogin().setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
+    }
 }

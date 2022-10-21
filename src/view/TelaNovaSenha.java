@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.CurrentUserController;
 import dao.CurrentUserDAO;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -20,11 +21,8 @@ public class TelaNovaSenha extends javax.swing.JFrame {
      */
     public TelaNovaSenha() {
         initComponents();
-        TextPrompt textPrompt = new TextPrompt("Nova senha", txtSenha);
-        textPrompt = new TextPrompt("Confirmar nova senha", txtConfirmarSenha);
         setLocationRelativeTo(null);
-        txtConfirmarSenha.setEnabled(false);
-        btnConfirmar.setEnabled(false);
+        inicializarComportamentos();
     }
 
     /**
@@ -122,11 +120,7 @@ public class TelaNovaSenha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
-        if(txtSenha.getText().length() == 8){
-            txtConfirmarSenha.setEnabled(true);
-        }else{
-            txtConfirmarSenha.setEnabled(false);
-        }
+        txtConfirmarSenha.setEnabled(txtSenha.getText().length() == 8);
     }//GEN-LAST:event_txtSenhaKeyReleased
 
     private void txtConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarSenhaKeyReleased
@@ -148,23 +142,11 @@ public class TelaNovaSenha extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaKeyPressed
 
     private void txtConfirmarSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarSenhaKeyPressed
-        if(txtSenha.getText().equals(txtConfirmarSenha.getText())){
-            boolean sucesso = new CurrentUserDAO().actualizarSenha(txtSenha.getText());
-            if(sucesso) JOptionPane.showMessageDialog(this, "Senha actualizada com sucesso");
-            else JOptionPane.showMessageDialog(this, "Erro ao actualizar senha");
-        }
+        salvar();
     }//GEN-LAST:event_txtConfirmarSenhaKeyPressed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        if(txtSenha.getText().equals(txtConfirmarSenha.getText())){
-            boolean sucesso = new CurrentUserDAO().actualizarSenha(txtSenha.getText());
-            if(sucesso){
-                JOptionPane.showMessageDialog(this, "Senha actualizada com sucesso");
-                this.dispose();
-                new TelaLogin().setVisible(true);
-            }
-            else JOptionPane.showMessageDialog(this, "Erro ao actualizar senha");
-        }
+        salvar();
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
@@ -179,4 +161,23 @@ public class TelaNovaSenha extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtConfirmarSenha;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
+
+    private void inicializarComportamentos(){
+        TextPrompt textPrompt = new TextPrompt("Nova senha", txtSenha);
+        textPrompt = new TextPrompt("Confirmar nova senha", txtConfirmarSenha);
+        txtConfirmarSenha.setEnabled(false);
+        btnConfirmar.setEnabled(false);
+    }
+
+    private void salvar(){
+        if(txtSenha.getText().equals(txtConfirmarSenha.getText())){
+            boolean sucesso = new CurrentUserController().actualizarSenha(txtSenha.getText());
+            if(sucesso){
+                JOptionPane.showMessageDialog(this, "Senha actualizada com sucesso");
+                this.dispose();
+                new TelaLogin().setVisible(true);
+            }
+            else JOptionPane.showMessageDialog(this, "Erro ao actualizar senha");
+        }
+    }
 }
