@@ -152,7 +152,6 @@ public class TelaLogin extends javax.swing.JFrame {
         System.out.println(currentUser.getNome());
         if(txtUsuario.getText().equals(currentUser.getNome()) && txtPassword.getText().equals(currentUser.getSenha())){
             TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(currentUser);
-            telaMenuPrincipal.setCurrentUser(currentUser);
             telaMenuPrincipal.setVisible(true);
             this.dispose();
         }else{

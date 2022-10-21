@@ -24,7 +24,6 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.currentUser = currentUser;
-        System.out.println(currentUser.getNome());
         txtCurrentUser.setText(currentUser.getNome());
     }
 
@@ -189,7 +188,6 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         String operacao = jButton3.getText();
         TelaListar telaListar = new TelaListar(this.currentUser);
         telaListar.setOperacao(operacao);
-        telaListar.setCurrentUser(this.currentUser);
         telaListar.setVisible(true);
         
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -207,7 +205,6 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         String operacao = jButton2.getText();
         TelaListar telaListar = new TelaListar(this.currentUser);
         telaListar.setOperacao(operacao);
-        telaListar.setCurrentUser(this.currentUser);
         telaListar.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -216,7 +213,6 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
         String operacao = jButton5.getText();
         TelaListar telaListar = new TelaListar(this.currentUser);
         telaListar.setOperacao(operacao);
-        telaListar.setCurrentUser(this.currentUser);
         telaListar.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -238,12 +234,4 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel txtCurrentUser;
     // End of variables declaration//GEN-END:variables
 
-
-    public CurrentUser getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(CurrentUser currentUser) {
-        this.currentUser = currentUser;
-    }
 }

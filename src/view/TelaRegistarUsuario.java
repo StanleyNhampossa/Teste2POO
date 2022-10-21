@@ -279,7 +279,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso");
                     TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
                     telaMenuPrincipal.setVisible(true);
-                    telaMenuPrincipal.setCurrentUser(this.currentUser);
                     this.dispose();
                 }else
                     JOptionPane.showMessageDialog(this, "Verifique os campos");
@@ -291,7 +290,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Usuário editado com sucesso");
                     TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
                     telaMenuPrincipal.setVisible(true);
-                    telaMenuPrincipal.setCurrentUser(this.currentUser);
                     this.dispose();
                 }else
                     JOptionPane.showMessageDialog(this, "Verifique os campos");
@@ -303,7 +301,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
-        telaMenuPrincipal.setCurrentUser(this.currentUser);
         telaMenuPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

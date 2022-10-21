@@ -151,7 +151,6 @@ public class TelaListar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
-        telaMenuPrincipal.setCurrentUser(this.currentUser);
         telaMenuPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -159,9 +158,6 @@ public class TelaListar extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if(evt.getClickCount() == 2){
             System.out.println(operacao);
-//            if(operacao.equals("Listar")){
-//                
-//            }
             if(operacao.equals("Editar")){
                 int id = (Integer) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
                 String nome = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1);
@@ -228,12 +224,4 @@ public class TelaListar extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-
-    public CurrentUser getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(CurrentUser currentUser) {
-        this.currentUser = currentUser;
-    }
 }
