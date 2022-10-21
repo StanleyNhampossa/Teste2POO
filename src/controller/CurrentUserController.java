@@ -29,6 +29,10 @@ public class CurrentUserController {
     public CurrentUser recuperar(){
         return new CurrentUser().recuperar();
     }
+
+    public void actualizarLembrarMe(boolean lembrarMe){
+        new CurrentUser().actualizarLembrarMe(lembrarMe);
+    }
     
     public boolean actualizarSenha(String senha){
         return new CurrentUser().actualizarSenha(senha);

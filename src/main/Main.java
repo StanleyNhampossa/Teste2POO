@@ -8,6 +8,7 @@ import controller.CurrentUserController;
 import model.CurrentUser;
 import view.TelaCriarNovaConta;
 import view.TelaLogin;
+import view.TelaMenuPrincipal;
 
 /**
  *
@@ -21,7 +22,11 @@ public class Main {
     public static void main(String[] args) {
         CurrentUser user = new CurrentUserController().recuperar();
         if(user != null){
-            new TelaLogin().setVisible(true);
+            if(user.isLembrarMe()){
+                TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(user);
+                telaMenuPrincipal.setVisible(true);
+            }
+            else new TelaLogin().setVisible(true);
         }else{
             new TelaCriarNovaConta().setVisible(true);
         }

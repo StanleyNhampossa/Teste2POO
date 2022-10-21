@@ -4,9 +4,11 @@
  */
 package view;
 
+import controller.CurrentUserController;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+
 import model.CurrentUser;
 
 /**
@@ -36,7 +38,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         txtUsuario = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chbLembrarMe = new javax.swing.JCheckBox();
         lblEsqueceuSenha = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnEntrar = new javax.swing.JButton();
@@ -52,7 +54,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setText("Lembrar de mim");
+        chbLembrarMe.setText("Lembrar de mim");
 
         lblEsqueceuSenha.setText("Esqueceu Senha?");
         lblEsqueceuSenha.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,7 +104,7 @@ public class TelaLogin extends javax.swing.JFrame {
                         .addGap(81, 81, 81)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
+                                .addComponent(chbLembrarMe)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                                 .addComponent(lblEsqueceuSenha))
                             .addComponent(txtUsuario)
@@ -124,7 +126,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
+                    .addComponent(chbLembrarMe)
                     .addComponent(lblEsqueceuSenha))
                 .addGap(18, 18, 18)
                 .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,6 +153,7 @@ public class TelaLogin extends javax.swing.JFrame {
         CurrentUser currentUser = new CurrentUser().recuperar();
         System.out.println(currentUser.getNome());
         if(txtUsuario.getText().equals(currentUser.getNome()) && txtPassword.getText().equals(currentUser.getSenha())){
+            new CurrentUserController().actualizarLembrarMe(chbLembrarMe.isSelected());
             TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(currentUser);
             telaMenuPrincipal.setVisible(true);
             this.dispose();
@@ -211,7 +214,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox chbLembrarMe;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblEsqueceuSenha;

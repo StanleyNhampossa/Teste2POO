@@ -87,7 +87,28 @@ public class CurrentUserDAO {
         
         return false;
     }
+    public void actualizarLembrarMe(boolean lembrarMe){
+        String sql = "update currentuser set lembrarMe = ? where id = 1";
 
+        try {
+            conexao = new Conexao().getConexao();
+            preparedStatement = conexao.prepareStatement(sql);
+            preparedStatement.setBoolean(1, lembrarMe);
+            preparedStatement.execute();
+
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar" + e.getMessage());
+        } finally {
+            try {
+                preparedStatement.close();
+                conexao.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
     public CurrentUser recuperar(){
         String sql = "select * from currentuser";
         CurrentUser currentUser = null;
@@ -103,6 +124,7 @@ public class CurrentUserDAO {
             currentUser.setSenha(resultSet.getString(3));
             currentUser.setMetodoDeRecuperacao(resultSet.getString(4));
             currentUser.setResposta(resultSet.getString(5));
+            currentUser.setLembrarMe(resultSet.getBoolean(6));
 
         }
 

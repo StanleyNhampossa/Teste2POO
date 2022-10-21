@@ -75,6 +75,10 @@ public class CurrentUser {
         return new CurrentUserDAO().actualizarSenha(senha);
     }
 
+    public void actualizarLembrarMe(boolean lembrarMe){
+        new CurrentUserDAO().actualizarLembrarMe(lembrarMe);
+    }
+
     public boolean isLembrarMe() {
         return lembrarMe;
     }

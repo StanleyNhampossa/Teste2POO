@@ -51,7 +51,7 @@
                           <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="chbLembrarMe" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="96" max="32767" attributes="0"/>
                                   <Component id="lblEsqueceuSenha" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -80,7 +80,7 @@
                   <Component id="txtPassword" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chbLembrarMe" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblEsqueceuSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -102,7 +102,7 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtUsuarioKeyPressed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+        <Component class="javax.swing.JCheckBox" name="chbLembrarMe">
           <Properties>
             <Property name="text" type="java.lang.String" value="Lembrar de mim"/>
           </Properties>

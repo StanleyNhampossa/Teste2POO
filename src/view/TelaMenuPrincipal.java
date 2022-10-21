@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.CurrentUserController;
 import model.CurrentUser;
 
 import javax.swing.JOptionPane;
@@ -195,6 +196,7 @@ public class TelaMenuPrincipal extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int opcao = JOptionPane.showConfirmDialog(this, "Deseja sair?", "Confirmar", YES_NO_OPTION);
         if(opcao == 0){
+            new CurrentUserController().actualizarLembrarMe(false);
             this.dispose();
             new TelaLogin().setVisible(true);
         }

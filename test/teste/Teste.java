@@ -1,4 +1,4 @@
-package main;
+package teste;
 
 import controller.UsuarioController;
 import dao.Conexao;
