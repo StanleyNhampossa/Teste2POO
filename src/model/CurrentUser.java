@@ -18,6 +18,8 @@ public class CurrentUser {
     private String metodoDeRecuperacao;
     private String resposta;
 
+    private boolean lembrarMe;
+
     public CurrentUser() {
     }
 
@@ -71,5 +73,13 @@ public class CurrentUser {
     
     public boolean actualizarSenha(String senha){
         return new CurrentUserDAO().actualizarSenha(senha);
+    }
+
+    public boolean isLembrarMe() {
+        return lembrarMe;
+    }
+
+    public void setLembrarMe(boolean lembrarMe) {
+        this.lembrarMe = lembrarMe;
     }
 }

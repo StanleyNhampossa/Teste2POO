@@ -5,6 +5,7 @@
 package view;
 
 import controller.UsuarioController;
+import model.CurrentUser;
 import model.Usuario;
 
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +23,8 @@ public class TelaListar extends javax.swing.JFrame {
      * Creates new form TelaListar
      */
     private String operacao = "Listar";
+
+    private CurrentUser currentUser;
 
     public void setOperacao(String operacao) {
         this.operacao = operacao;
@@ -51,11 +54,12 @@ public class TelaListar extends javax.swing.JFrame {
     }
 
 
-    public TelaListar() {
+    public TelaListar(CurrentUser currentUser) {
         initComponents();
         setLocationRelativeTo(null);
         preencherDadosNaTabela();
         TextPrompt textPrompt = new TextPrompt("Pesquisar", jTextField1);
+        this.currentUser = currentUser;
     }
 
     /**
@@ -146,16 +150,18 @@ public class TelaListar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
+        telaMenuPrincipal.setCurrentUser(this.currentUser);
+        telaMenuPrincipal.setVisible(true);
         this.dispose();
-        new TelaMenuPrincipal().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if(evt.getClickCount() == 2){
-            if(operacao.equals("Listar")){
-                
-            }
+            System.out.println(operacao);
+//            if(operacao.equals("Listar")){
+//                
+//            }
             if(operacao.equals("Editar")){
                 int id = (Integer) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
                 String nome = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1);
@@ -164,8 +170,11 @@ public class TelaListar extends javax.swing.JFrame {
                 String biografia = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 4);
                 Date data = (Date) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 5);
                 long contacto = (Long) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 6);
-                new TelaRegistarUsuario().preencherCampos(id, nome, email, nomeUsuario,
+                TelaRegistarUsuario telaRegistarUsuario = new TelaRegistarUsuario(this.currentUser);
+                telaRegistarUsuario.preencherCampos(id, nome, email, nomeUsuario,
                         biografia, data, contacto, operacao);
+                telaRegistarUsuario.setCurrentUser(this.currentUser);
+                this.dispose();
             }
             if(operacao.equals("Eliminar")){
                 int id = (Integer) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
@@ -218,4 +227,13 @@ public class TelaListar extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+
+    public CurrentUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(CurrentUser currentUser) {
+        this.currentUser = currentUser;
+    }
 }

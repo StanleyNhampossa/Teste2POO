@@ -187,7 +187,6 @@ public class TelaCriarNovaConta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
-        // TODO add your handling code here:
         if(txtSenha.getText().length() == 8){
             txtConfirmarSenha.setEnabled(true);
         }else{

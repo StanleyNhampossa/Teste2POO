@@ -139,7 +139,6 @@ public class TelaNovaSenha extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
 
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
-        // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             if(txtSenha.getText().length() == 8){
                 txtConfirmarSenha.setEnabled(true);
@@ -157,7 +156,6 @@ public class TelaNovaSenha extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmarSenhaKeyPressed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        // TODO add your handling code here:
         if(txtSenha.getText().equals(txtConfirmarSenha.getText())){
             boolean sucesso = new CurrentUserDAO().actualizarSenha(txtSenha.getText());
             if(sucesso){

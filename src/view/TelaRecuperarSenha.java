@@ -145,7 +145,6 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsernameKeyPressed
 
     private void txtRespostaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRespostaKeyPressed
-        // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             if(txtUsername.getText().isEmpty()){
                 txtUsername.setBackground(Color.RED);

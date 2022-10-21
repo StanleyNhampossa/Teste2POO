@@ -5,6 +5,7 @@
 package view;
 
 import controller.UsuarioController;
+import model.CurrentUser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,9 +20,8 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     
     private String operacao = "Cadastrar";
 
-    public void setOperacao(String operacao) {
-        this.operacao = operacao;
-    }
+    private CurrentUser currentUser;
+
     
     
 
@@ -31,8 +31,9 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
 
     private int id;
 
-    public TelaRegistarUsuario() {
+    public TelaRegistarUsuario(CurrentUser currentUser) {
         initComponents();
+        this.currentUser = currentUser;
         TextPrompt textPrompt = new TextPrompt("Nome", txtNome);
         textPrompt = new TextPrompt("Nome de usuário", txtNomeUsuario);
         textPrompt = new TextPrompt("Biografia", tafBiografia);
@@ -236,7 +237,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-        // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             if(txtNome.getText().isEmpty()){
                 txtNome.setBackground(Color.RED);
@@ -250,7 +250,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeKeyTyped
 
     private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
-        // TODO add your handling code here:
         txtNome.setBackground(Color.WHITE);
         if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
                     !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
@@ -262,7 +261,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeKeyReleased
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
         String nome = txtNome.getText();
         String nomeUsuario = txtNomeUsuario.getText();
         String email = txtEmail.getText();
@@ -271,7 +269,7 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
         String biografia = tafBiografia.getText();
         String senha = txtSenha.getText();
         String senhaAConfirmar = txtConfirmarSenha.getText();
-        if (areThePasswordTheSame(senha, senhaAConfirmar) == false) {
+        if (!areThePasswordTheSame(senha, senhaAConfirmar)) {
             JOptionPane.showMessageDialog(this, "Introduza senhas iguais");
         }else{
             if(operacao.equals("Cadastrar")){
@@ -279,8 +277,10 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
                         biografia, senha);
                 if(sucesso) {
                     JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso");
+                    TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
+                    telaMenuPrincipal.setVisible(true);
+                    telaMenuPrincipal.setCurrentUser(this.currentUser);
                     this.dispose();
-                    new TelaMenuPrincipal().setVisible(true);
                 }else
                     JOptionPane.showMessageDialog(this, "Verifique os campos");
             }
@@ -289,8 +289,10 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
                         biografia, senha);
                 if(sucesso) {
                     JOptionPane.showMessageDialog(this, "Usuário editado com sucesso");
+                    TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
+                    telaMenuPrincipal.setVisible(true);
+                    telaMenuPrincipal.setCurrentUser(this.currentUser);
                     this.dispose();
-                    new TelaMenuPrincipal().setVisible(true);
                 }else
                     JOptionPane.showMessageDialog(this, "Verifique os campos");
             
@@ -300,8 +302,10 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(this.currentUser);
+        telaMenuPrincipal.setCurrentUser(this.currentUser);
+        telaMenuPrincipal.setVisible(true);
         this.dispose();
-        new TelaMenuPrincipal().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
@@ -310,7 +314,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void txtSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyReleased
-        // TODO add your handling code here:
         if(txtSenha.getText().length() == 8){
             txtConfirmarSenha.setEnabled(true);
             if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
@@ -323,7 +326,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaKeyReleased
 
     private void txtConfirmarSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarSenhaKeyReleased
-        // TODO add your handling code here:
         if(txtConfirmarSenha.getText().equals(txtSenha.getText())){
             txtConfirmarSenha.setBackground(Color.green);
             if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
@@ -338,7 +340,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmarSenhaKeyReleased
 
     private void txtNomeUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyReleased
-        // TODO add your handling code here:
         if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
                     !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
                 btnSalvar.setEnabled(true);
@@ -348,7 +349,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeUsuarioKeyReleased
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
-        // TODO add your handling code here:
         if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
                     !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
                 btnSalvar.setEnabled(true);
@@ -358,7 +358,6 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailKeyReleased
 
     private void txtContactoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactoKeyReleased
-        // TODO add your handling code here:
         if((!txtNome.getText().isEmpty() && !txtContacto.getText().isEmpty() && !txtConfirmarSenha.getText().isEmpty() &&
                     !txtNomeUsuario.getText().isEmpty() && !txtSenha.getText().isEmpty() && !txtEmail.getText().isEmpty())){
                 btnSalvar.setEnabled(true);
@@ -409,5 +408,17 @@ public class TelaRegistarUsuario extends javax.swing.JFrame {
         jLabel1.setText("Edite o usuário");
         this.operacao = operacao;
         this.setVisible(true);
+    }
+
+    public void setOperacao(String operacao) {
+        this.operacao = operacao;
+    }
+
+    public CurrentUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(CurrentUser currentUser) {
+        this.currentUser = currentUser;
     }
 }

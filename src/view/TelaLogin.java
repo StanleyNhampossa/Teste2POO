@@ -148,11 +148,12 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        // TODO add your handling code here:
         CurrentUser currentUser = new CurrentUser().recuperar();
         System.out.println(currentUser.getNome());
         if(txtUsuario.getText().equals(currentUser.getNome()) && txtPassword.getText().equals(currentUser.getSenha())){
-            new TelaMenuPrincipal().setVisible(true);
+            TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(currentUser);
+            telaMenuPrincipal.setCurrentUser(currentUser);
+            telaMenuPrincipal.setVisible(true);
             this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Combinação de usuário e senha incorrecta");
@@ -170,26 +171,23 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lblEsqueceuSenhaMouseEntered
 
     private void lblEsqueceuSenhaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseExited
-        // TODO add your handling code here:
         lblEsqueceuSenha.setForeground(Color.black);
     }//GEN-LAST:event_lblEsqueceuSenhaMouseExited
 
     private void lblEsqueceuSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueceuSenhaMouseClicked
-        // TODO add your handling code here:
         this.dispose();
         new TelaRecuperarSenha().setVisible(true);        
     }//GEN-LAST:event_lblEsqueceuSenhaMouseClicked
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
-        // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             if(txtUsuario.getText().isEmpty()){
                 txtUsuario.setBackground(Color.RED);
             }else{
                 CurrentUser currentUser = new CurrentUser().recuperar();
                 if(txtUsuario.getText().equals(currentUser.getNome()) && txtPassword.getText().equals(currentUser.getSenha())){
-                    new TelaMenuPrincipal().setVisible(true);
-                    this.dispose();
+                    TelaMenuPrincipal telaMenuPrincipal = new TelaMenuPrincipal(currentUser);
+                    telaMenuPrincipal.setVisible(true);
                 }else{
                     JOptionPane.showMessageDialog(null, "Combinação de usuário e senha incorrecta");
                 }
@@ -199,7 +197,6 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordKeyPressed
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
-        // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             if(txtUsuario.getText().isEmpty()){
                 txtUsuario.setBackground(Color.RED);
